@@ -1,0 +1,20 @@
+<h1>I`m here</h1>
+
+
+<%= form_with(url: "index", method: "post") do |f| %>
+  <p><%= @sometext %><b> <%= @sometext2 %></b>
+    <br>
+    <br>
+  <%= f.text_field :linka, class: "form-control" %>
+  </p>
+
+  <%= f.submit "Parse", class: "form-control" %>
+<% end %>
+<h3><%= @kat %></h3>
+  <% $arr_urls.each do |url| %>
+    <h4>
+      <p>
+        <%= url %>
+      </p>
+    </h4>
+  <% end %>
