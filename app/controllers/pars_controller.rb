@@ -1,11 +1,13 @@
 class ParsController < ApplicationController
   @@asd = ""
   $arr_urls = ["one","two","three"]
-  #@@model = Pars.new
+
   def index
     @sometext = "Введите категорию онлайнера (то, что черным цветом): https://catalog.onliner.by/"
     @sometext2 = "headphones"
     @kat = @@asd
+
+    @links = Link.all
   end
 
   def sub
