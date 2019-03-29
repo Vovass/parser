@@ -14,10 +14,11 @@ class ParsController < ApplicationController
   def sub
     @@asd = params[:linka]
     redirect_to "/"
-    @par = Par.new()
-    @@arr = @par.getUrls("https://catalog.onliner.by/" + @@asd)#"https://catalog.onliner.by/" + @@asd.to_s
+    @par = Par.new
+    @@arr = @par.getUrls(@@asd)#"https://catalog.onliner.by/" + @@asd.to_s
+    pry
     @@arr.each do |elem|
-      Link.create(linkname: elem)
+      Link.create(linkname: elem["name"])
     end
   end
 
