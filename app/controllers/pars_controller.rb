@@ -1,12 +1,13 @@
 class ParsController < ApplicationController
   @@asd = ""
+  @@arr = []
   $arr_urls = ["one","two","three"]
 
   def index
     @sometext = "Введите категорию онлайнера (то, что черным цветом): https://catalog.onliner.by/"
     @sometext2 = "headphones"
     @kat = @@asd
-
+    @arr = @@arr
     @links = Link.all
   end
 
@@ -14,7 +15,10 @@ class ParsController < ApplicationController
     @@asd = params[:linka]
     redirect_to "/"
     @par = Par.new()
-    @par.getUrls("https://catalog.onliner.by/" + @@asd)#"https://catalog.onliner.by/" + @@asd.to_s
+    @@arr = @par.getUrls("https://catalog.onliner.by/" + @@asd)#"https://catalog.onliner.by/" + @@asd.to_s
+    @@arr.each do |elem|
+      Link.create(linkname: elem)
+    end
   end
 
 
