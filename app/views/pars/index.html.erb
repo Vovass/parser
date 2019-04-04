@@ -1,10 +1,7 @@
-<h1>I`m here</h1>
-
-
+<h1 style =  "text-align: center;">Page Data Base Select</h1>
 <%= form_with(url: "index", method: "post") do |f| %>
+
   <p><%= @sometext %><b> <%= @sometext2 %></b>
-    <br>
-    <br>
   <%= f.text_field :linka, class: "form-control" %>
   </p>
 
@@ -19,6 +16,15 @@
     </h4>
   <% end %>
   <p style="text-align:center"> ________________________________________________________</p>
-  <% @links.each do |link| %>
-    <h2 style = "text-align: center;">  <%= link.linkname %> </h2>
+  <% if @product.empty? %>
+    По категории <%= @kat %> данных нет, нажмите: <%= link_to 'UPDATE', update_path %> если хотите добавить данные
+  <% else %>
+    Желаете обновить данные ? <%= link_to 'UPDATE', update_path %>
+    <% @product.each do |pr| %>
+      <h2 style = "text-align: center;"> CatName: <%= pr.cname %>, ProdName <%= pr.pname %> </h2>
+    <% end %>
+
   <% end %>
+headphones кажись без картинок и ссылок надо обыграть в парсинге....
+экспорт в CSV редиректы страниц
+и вообще сделать одну страницу наверное... с категориями и ссылками на них

@@ -8,18 +8,19 @@ class ParsController < ApplicationController
     @sometext2 = "headphones"
     @kat = @@asd
     @arr = @@arr
-    @links = Link.all
+    @product = Product.joins(:category).select("products.name as pname, categories.name as cname").where("categories.name = ?", @@asd)
+    
   end
 
   def sub
     @@asd = params[:linka]
     redirect_to "/"
-    @par = Par.new
-    @@arr = @par.getUrls(@@asd)#"https://catalog.onliner.by/" + @@asd.to_s
-    pry
-    @@arr.each do |elem|
-      Link.create(linkname: elem["name"])
-    end
+    # @par = Par.new
+    # @@arr = @par.getUrls(@@asd)#"https://catalog.onliner.by/" + @@asd.to_s
+    # #pry
+    # @@arr.each do |elem|
+    #   Link.create(linkname: elem["name"])
+    # end
   end
 
 

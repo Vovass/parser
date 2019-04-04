@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
 root 'pars#index'
 
-get 'testpage' => 'pages#testpage'
-get 'onepage' => 'pars#onepage'
-post 'onepage' => 'pars#onepage'
 
-#post 'index' => 'pars#index'
+get 'update' => 'pages#update'
+post 'update' => 'pages#update_category'
+
 get 'index' => 'pars#index'
 post 'index' => 'pars#sub'
 end

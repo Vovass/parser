@@ -6,10 +6,14 @@ ruby '2.4.0'
 gem 'curb'
 gem 'nokogiri'
 gem 'json'
+
 #gem 'phantomjs'
 #gem 'watir'
 #gem 'webdrivers'
 gem 'pry'
+gem 'pry-rails'
+gem 'activerecord-import'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
 # Use sqlite3 as the database for Active Record
