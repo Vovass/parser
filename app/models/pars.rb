@@ -1,4 +1,4 @@
-class Par < ApplicationRecord
+class Pars < ApplicationRecord
   #$arr_json = []
   def getjsoncontent(category, number, category_id)
   	page = Curl.get("https://catalog.api.onliner.by/search/#{category}?group=1&page=#{number}")
@@ -13,7 +13,7 @@ class Par < ApplicationRecord
   			"price_min" => elem["prices"] == nil ? 0 : elem["prices"]["min"],
   			"price_max" => elem["prices"] == nil ? 0 : elem["prices"]["max"],
   			"html_url" => elem["html_url"],
-  			"img_url" => elem["images"]["header"].gsub("//",""),
+  			"img_url" => elem["images"]["header"] == nil ? 0 : elem["images"]["header"].gsub("//",""),
         "category_id" => category_id
   		}
 
@@ -25,7 +25,7 @@ class Par < ApplicationRecord
           "price_min" => elem2["prices"] == nil ? 0 : elem2["prices"]["min"],
     			"price_max" => elem2["prices"] == nil ? 0 : elem2["prices"]["max"],
           "html_url" => elem2["html_url"],
-  				"img_url" => elem2["images"]["header"].gsub("//",""),
+  				"img_url" => elem2["images"]["header"] == nil ? 0 : elem2["images"]["header"].gsub("//",""),
           "category_id" => category_id
   			}
   		end
@@ -34,8 +34,8 @@ class Par < ApplicationRecord
     return arr_json
   end
 
-  def getUrls(category, category_id)
-    page = Curl.get("https://catalog.api.onliner.by/search/#{category}?group=1&page=1")
+  def getProducts(category)
+    page = Curl.get("https://catalog.api.onliner.by/search/#{category.name}?group=1&page=1")
   	head = page.head.scan(/<https.+?>/)
   	col_page = head[-1].scan(/page=.+?>/).join.scan(/\d/).join.to_i
     arr_json = []
@@ -44,12 +44,12 @@ class Par < ApplicationRecord
     if col_page > 60
     	while i <= col_page do
     		sleep(i % 15 == 0 ? 7 : 0.5 )
-    			arr_json << getjsoncontent(category, i, category_id)
+    			arr_json << getjsoncontent(category.name, i, category.id)
     		i += 1
     	end
     else
     	while i <= col_page do
-    			arr_json << getjsoncontent(category, i, category_id)
+    			arr_json << getjsoncontent(category.name, i, category.id)
     		i += 1
     	end
     end

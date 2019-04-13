@@ -1,8 +1,12 @@
 <h1 style =  "text-align: center;">Page Data Base Update</h1>
 <%= @cat_textfild %>
+
 <%= form_with(url: "update", method: "post") do |f| %>
     <br>
   <%= f.text_field :category, class: "form-control" %>
     <br>
   <%= f.submit "Parse", class: "form-control" %>
 <% end %>
+<br>
+<%= @wait %>
+<%= @error  %>

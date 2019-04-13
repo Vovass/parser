@@ -1,0 +1,33 @@
+// Place all the styles related to the Pars controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.csv_btn {
+  margin-top: 20px;
+  float: right;
+  display: none;
+  width: 20%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #286;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s
+}
+a.csv_btn {
+  color: #fff;
+  text-decoration: none;
+}
+.block {
+  display: block;
+}
+.my_form {
+  left: 40%
+}
+.person_style {
+ text-align-last: center;
+}

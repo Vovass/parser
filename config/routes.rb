@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-root 'pars#index'
+root 'main#index'
 
 
-get 'update' => 'pages#update'
-post 'update' => 'pages#update_category'
+get 'update' => 'update#update'
+post 'update' => 'update#update_category'
 
-get 'index' => 'pars#index'
-post 'index' => 'pars#sub'
+get 'index' => 'main#index'
+post 'index' => 'main#sub'
+get 'htts' => 'main#query'
+
 end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
