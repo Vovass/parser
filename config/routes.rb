@@ -6,7 +6,7 @@ get 'update' => 'update#update'
 post 'update' => 'update#update_category'
 
 get 'index' => 'main#index'
-post 'index' => 'main#sub'
+post 'index' => 'main#check'
 get 'htts' => 'main#query'
 
 end

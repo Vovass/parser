@@ -16,14 +16,14 @@ class MainController < ApplicationController
   end
 
   def query
-    cats_name = params[:temp]
+    cats_name = params[:select_category]
     @all = Product.joins(:category).select("products.name as product_name, categories.name as category_name, description, price_min, price_max, html_url, img_url").where("categories.name = ?", cats_name)
     respond_to do |format|
       format.json {render json: @all}
     end
   end
 
-  def sub#cheach
+  def check#cheach
     @@display_block = "block"
     @@textfild = params[:linka]
     redirect_to "/"
