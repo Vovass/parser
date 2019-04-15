@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
-root 'main#index'
+  root 'main#index'
 
 
-get 'update' => 'update#update'
-post 'update' => 'update#update_category'
+  get 'update' => 'update#update'
+  post 'update' => 'update#update_category'
 
-get 'index' => 'main#index'
-post 'index' => 'main#check'
-get 'htts' => 'main#query'
-
+  get 'index' => 'main#index'
+  get 'hts' => 'main#query'
 end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

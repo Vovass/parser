@@ -5,8 +5,8 @@
   margin-top: 20px;
   float: right;
   display: none;
-  width: 20%;
-  height: calc(1.5em + .75rem + 2px);
+  width: 15%;
+  min-height: calc(1.5em + .75rem + 2px);
   padding: .375rem .75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -16,8 +16,13 @@
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: .25rem;
-  transition: border-color .15s
+  transition: border-color .15s;
+  text-align:center;
 }
+.remove {
+  margin-bottom: 18px;
+}
+
 a.csv_btn {
   color: #fff;
   text-decoration: none;
@@ -28,6 +33,18 @@ a.csv_btn {
 .my_form {
   left: 40%
 }
-.person_style {
- text-align-last: center;
+.select2-container--default {
+  width: 100%!important;
+}
+.select2 span {
+  margin-bottom: 10px;
+}
+.selection .select2-selection span {
+  text-align-last: center;
+  opacity: .85;
+}
+.absolute_CSV {
+  position:fixed;
+  top: 20px;
+  right: 20px;
 }

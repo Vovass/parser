@@ -1,35 +1,32 @@
 class MainController < ApplicationController
-  @@textfild = ""
-  @@display_block = "none"
 
   def index
-    @textfild_category = @@textfild
-
     @categorys = Category.all
-    @product = Product.joins(:category).select("products.name as product_name, categories.name as category_name, description, price_min, price_max, html_url, img_url").where("categories.name = ?", @@textfild)
-    @display_block = @@display_block
-
     respond_to do |format|
       format.html
-      format.csv {send_data(export_csv(@product), :filename => "#{@textfild_category}.csv", :type => 'text/csv;')}
+      format.csv {send_data(export_csv(@@selected_products), :filename => "#{@@cats_name}.csv", :type => 'text/csv;')}
     end
   end
 
   def query
     cats_name = params[:select_category]
-    @all = Product.joins(:category).select("products.name as product_name, categories.name as category_name, description, price_min, price_max, html_url, img_url").where("categories.name = ?", cats_name)
-    respond_to do |format|
-      format.json {render json: @all}
+    product = Product.new
+    if Category.exists?(name: cats_name)
+      selected_products = product.getByCategory(getCategoryByName(cats_name).id)
     end
+    respond_to do |format|
+      format.json {render json: selected_products}
+      #format.csv {send_data(export_csv(selected_products), :filename => "#{cats_name}.csv", :type => 'text/csv;')}
+    end
+    @@selected_products = selected_products
+    @@cats_name = cats_name
   end
 
-  def check#cheach
-    @@display_block = "block"
-    @@textfild = params[:linka]
-    redirect_to "/"
+  def getCategoryByName(name)
+    return Category.where(name: name).last if Category.exists?(name: name)
   end
 
-  def export_csv(obj)
+  def export_csv(obj)# object database selected Products
     head = %w{product_name category_name description price_min price_max html_url img_url}
     CSV.generate(col_sep: ";") do |csv|
       csv << head

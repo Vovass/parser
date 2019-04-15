@@ -1,50 +1,19 @@
+<h1 style = "text-align: center;">Page Data Base Select</h1>
+
 <p style="text-align:center;">-----------------New Form-----------------</p>
 
   <div class="col-4 mx-auto">
-    <select name="product" id="products" class="form-control person_style">
+    <select name="product" id="products" class="js-example-basic-single form-control person_style">
       <% product_array = @categorys.all.map {|elem| elem.name } %>
       <%= options_for_select(product_array) %>
     </select>
     <br>
-    <%= link_to 'Work With jQuery',{ :controller => "main", :action => "query" }, class: 'jq form-control person_style', remote: true %>
+    <button type="button" class="form-control" id="btn_check" name="check">Check</button>
   </div>
-
-    <div class="container">
-      <div class="row cont"></div>
-    </div>
-<p style="text-align:center;">-----------------New Form-----------------</p>
-
-<h1 style = "text-align: center;">Page Data Base Select</h1>
-<%= form_with(url: "index", method: "post", remote: true) do |f| %>
-  <p>Введите категорию онлайнера (то, что черным цветом): https://catalog.onliner.by/<b>headphones</b>
-  <%= f.text_field :linka, class: "form-control" %>
-  </p>
-  <%= f.submit "Check", class: "form-control" %>
-<% end %>
-
-<%= link_to 'Download CSV list', root_path(format: :csv), :class => "csv_btn #{@display_block}"  %>
-
-<h3><%= @textfild_category %></h3>
-  <p style="text-align:center"> ________________________________________________________</p>
-  <% if @product.empty? %>
-    По категории <%= @textfild_category %> данных нет, нажмите: <%= link_to 'UPDATE', update_path %> если хотите добавить данные
-  <% else %>
-    Желаете обновить данные ? <%= link_to 'UPDATE', update_path %>
+    <%= link_to 'UPDATE', update_path %>
+    <%= link_to 'Download CSV',  {:controller => "main", :action => "index", format: :csv} , :class => "csv_btn block absolute_CSV"  %>
   <div class="container">
-    <div class="row">
-      <div class="col-3">Product </div>
-      <!-- <div class="col-md-2">Category</div> -->
-      <div class="col-md-7" style = "text-align: center;">Description</div>
-      <div class="col-md-2">Price</div>
-      <!-- <div class="col-md-2">Link</div>
-      <div class="col-md-2">IMG</div> -->
-      <% @product.each do |pr| %>
-      <!-- <div class="row" style = "margin-top: 20px;"> -->
-        <div class="col-3"><b> <%= pr.product_name %> </b></div>
-        <div class="col-md-7"><%= pr.description %></div>
-        <div class="col-2" style = "margin-bottom: 20px;"><%= pr.price_min %> - <%= pr.price_max %></div>
-      <!-- </div> -->
-      <% end %>
+    <div class="row cont"></div>
   </div>
-</div>
-  <% end %>
+
+<p style="text-align:center; margin-top:30px">-----------------New Form-----------------</p>
