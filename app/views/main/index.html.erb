@@ -4,7 +4,7 @@
 
   <div class="col-4 mx-auto">
     <select name="product" id="products" class="js-example-basic-single form-control person_style">
-      <% product_array = @categorys.all.map {|elem| elem.name } %>
+      <% product_array = @categorys.all.map {|elem| [elem.abstract_name, elem.name]} %>
       <%= options_for_select(product_array) %>
     </select>
     <br>

@@ -23,7 +23,7 @@ class MainController < ApplicationController
   end
 
   def getCategoryByName(name)
-    return Category.where(name: name).last if Category.exists?(name: name)
+    Category.where(name: name).last if Category.exists?(name: name)
   end
 
   def export_csv(obj)# object database selected Products

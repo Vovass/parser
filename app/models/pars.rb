@@ -1,5 +1,4 @@
 class Pars < ApplicationRecord
-  #$arr_json = []
   def getjsoncontent(category, number, category_id)
   	page = Curl.get("https://catalog.api.onliner.by/search/#{category}?group=1&page=#{number}")
   	json = JSON.parse(page.body_str)
@@ -31,7 +30,7 @@ class Pars < ApplicationRecord
   		end
   	end
   	p "___________________________#{number}___________________________"
-    return arr_json
+    arr_json
   end
 
   def getProducts(category)

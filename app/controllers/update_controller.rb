@@ -14,6 +14,8 @@ class UpdateController < ApplicationController
     @@wait = "Please wait..."
     redirect_to "/"
     saveData(getCategoryByName(@@textfild))
+    #удалять продукты где ид категории = продукт_кат-ид, и заполнять заного их...
+    
   end
 
   def getCategoryByName(name)
