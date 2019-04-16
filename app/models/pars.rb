@@ -54,4 +54,21 @@ class Pars < ApplicationRecord
     end
     arr_json.flatten
   end
+
+  def getCategoryLoc()
+    arr = []
+    page = Curl.get("https://catalog.onliner.by")
+    doc = Nokogiri::HTML(page.body_str)
+    links = doc.xpath('//*[@class = "catalog-navigation-list__dropdown-list"]/a').each do |elem|
+      full_link = elem.attribute('href').text
+      name_links = full_link.gsub(/.+?\//, '') if !full_link.include?("?")
+
+      cat_name = elem.search('span.catalog-navigation-list__dropdown-title').text.strip
+      arr << name_links
+      arr << cat_name
+    end
+    hash = Hash[*arr]
+    hash.delete(nil)
+    return hash
+  end
 end

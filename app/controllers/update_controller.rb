@@ -12,10 +12,18 @@ class UpdateController < ApplicationController
   def update_category #
     @@textfild = params[:category]
     @@wait = "Please wait..."
-    redirect_to "/"
-    saveData(getCategoryByName(@@textfild))
+    #redirect_to "/"
+    #saveData(getCategoryByName(@@textfild))
+    parser = Pars.new
+
+    addCategories(parser.getCategoryLoc())
     #удалять продукты где ид категории = продукт_кат-ид, и заполнять заного их...
-    
+  end
+
+  def addCategories(hash)
+    hash.each do |key, value|
+      Category.create(name: key, abstract_name: value) if !Category.exists?(name: key)
+    end
   end
 
   def getCategoryByName(name)
@@ -36,6 +44,7 @@ class UpdateController < ApplicationController
       @@error = "Такой категории не существует"
       Category.delete(category)
     end
+
   end
 
 end
