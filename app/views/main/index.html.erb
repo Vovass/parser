@@ -1,7 +1,6 @@
-<h1 style = "text-align: center;">Page Data Base Select</h1>
+<h1 style = "text-align: center;">Onliner all products parser</h1>
 
-<p style="text-align:center;">-----------------New Form-----------------</p>
-
+<br>
   <div class="col-4 mx-auto">
     <select name="product" id="products" class="js-example-basic-single form-control person_style">
       <% product_array = @categorys.all.map {|elem| [elem.abstract_name, elem.name]} %>
@@ -10,10 +9,8 @@
     <br>
     <button type="button" class="form-control" id="btn_check" name="check">Check</button>
   </div>
-    <%= link_to 'UPDATE', update_path %>
     <%= link_to 'Download CSV',  {:controller => "main", :action => "index", format: :csv} , :class => "csv_btn block absolute_CSV"  %>
+    <br>
   <div class="container">
     <div class="row cont"></div>
   </div>
-
-<p style="text-align:center; margin-top:30px">-----------------New Form-----------------</p>

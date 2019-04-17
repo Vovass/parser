@@ -8,11 +8,12 @@ $(document).ready(function () {
       data: 'select_category=' + select_category,
       beforeSend: function(xhr, opts){
         $("div.remove").remove();
-        $(".cont").append("<div class='remove'>Please wait.... надо сделать нормальнае отображение почему то не отрисовываются другие блоки КОЛ бутрстапа, удаление ненужного контента со страницы, как-то всё оптимизировать индексы добавить!</div>")
+        $(".cont").append("<div class='remove'>Пожалуйста подождите это может занять какое-то время :3 индексы добавить!</div>")
       },
       success: function(jsondata) {
+        $("div.remove").remove();
         console.log(select_category);
-        let data = "";
+        let data = "<br><div class='remove col-3'>Name</div><div class='remove col-md-7'>Description</div><div class='remove col-2'>Price</div>";
         jsondata.forEach(function(item, i, jsondata) {
           data += "<div class='remove col-3'>" + item.product_name + "</div><div class='remove col-md-7'>" + item.description + "</div><div class='remove col-2'>" + item.price_min + ' - ' + item.price_max + "</div>"
         });

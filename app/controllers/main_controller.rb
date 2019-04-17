@@ -7,17 +7,18 @@ class MainController < ApplicationController
       format.csv {send_data(export_csv(@@selected_products), :filename => "#{@@cats_name}.csv", :type => 'text/csv;')}
     end
   end
-
+#Сделать button update для обновления данных в существующей категории
   def query
     cats_name = params[:select_category]
     product = Product.new
-    if Category.exists?(name: cats_name)
-      selected_products = product.getByCategory(getCategoryByName(cats_name).id)
+    find_category = getCategoryByName(cats_name)
+
+    selected_products = product.getProductsByCategoryId(find_category.id)
+    if selected_products.blank?
+      saveData(find_category)#проблема с одностраничниками
+      selected_products = product.getProductsByCategoryId(find_category.id)
     end
-    respond_to do |format|
-      format.json {render json: selected_products}
-      #format.csv {send_data(export_csv(selected_products), :filename => "#{cats_name}.csv", :type => 'text/csv;')}
-    end
+    respond_to {|format| format.json {render json: selected_products}} #format.csv {send_data(export_csv(selected_products), :filename => "#{cats_name}.csv", :type => 'text/csv;')}
     @@selected_products = selected_products
     @@cats_name = cats_name
   end
@@ -36,4 +37,23 @@ class MainController < ApplicationController
     end
   end
 
+  def saveData(category)
+    parser = Pars.new
+    begin
+      Product.transaction do
+        parsed_data = parser.getProducts(category)
+        columns = ["name", "description", "price_min", "price_max", "html_url", "img_url", "category_id"]
+        Product.import columns, parsed_data, validate:false
+      end
+    rescue NoMethodError
+      @@error = "Такой категории не существует"
+    end
+  end
+    #addCategories(parser.getCategoryLoc())
+
+    # def addCategoriesLocal(hash)
+    #   hash.each do |key, value|
+    #     Category.create(name: key, abstract_name: value) if !Category.exists?(name: key)
+    #   end
+    # end
 end
