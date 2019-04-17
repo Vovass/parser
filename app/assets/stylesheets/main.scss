@@ -26,9 +26,10 @@
 a.csv_btn {
   color: #fff;
   text-decoration: none;
+  z-index: 1;
 }
-.block {
-  display: block;
+.none {
+  display: none;
 }
 .my_form {
   left: 40%

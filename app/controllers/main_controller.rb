@@ -8,17 +8,28 @@ class MainController < ApplicationController
     end
   end
 #Сделать button update для обновления данных в существующей категории
-  def query
+  def check
     cats_name = params[:select_category]
     product = Product.new
     find_category = getCategoryByName(cats_name)
-
     selected_products = product.getProductsByCategoryId(find_category.id)
     if selected_products.blank?
       saveData(find_category)#проблема с одностраничниками
       selected_products = product.getProductsByCategoryId(find_category.id)
     end
     respond_to {|format| format.json {render json: selected_products}} #format.csv {send_data(export_csv(selected_products), :filename => "#{cats_name}.csv", :type => 'text/csv;')}
+    @@selected_products = selected_products
+    @@cats_name = cats_name
+  end
+
+  def updateProducts
+    cats_name = params[:select_category]
+    product = Product.new
+    find_category = getCategoryByName(cats_name)
+    Product.where(category_id: find_category).delete_all
+    saveData(find_category)#проблема с одностраничниками
+    selected_products = product.getProductsByCategoryId(find_category.id)
+    respond_to {|format| format.json {render json: selected_products}}
     @@selected_products = selected_products
     @@cats_name = cats_name
   end

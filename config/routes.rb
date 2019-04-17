@@ -2,5 +2,9 @@ Rails.application.routes.draw do
   root 'main#index'
 
   get 'index' => 'main#index'
-  get 'hts' => 'main#query'
+  get 'check' => 'main#check'
+
+  get 'updateProduct' => 'main#updateProducts'
+
+
 end

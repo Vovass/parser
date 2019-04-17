@@ -7,9 +7,10 @@
       <%= options_for_select(product_array) %>
     </select>
     <br>
-    <button type="button" class="form-control" id="btn_check" name="check">Check</button>
+    <button type="button" class="form-control" id="btn_check" name="check">Check</button><br>
+    <button type="button" class="form-control none" id="btn_update" name="update">Update</button>
   </div>
-    <%= link_to 'Download CSV',  {:controller => "main", :action => "index", format: :csv} , :class => "csv_btn block absolute_CSV"  %>
+    <%= link_to 'Download CSV',  {:controller => "main", :action => "index", format: :csv} ,:id => "btn_CSV", :class => "csv_btn none absolute_CSV"  %>
     <br>
   <div class="container">
     <div class="row cont"></div>
