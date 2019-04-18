@@ -15,7 +15,6 @@ class Pars < ApplicationRecord
   			"img_url" => elem["images"]["header"] == nil ? 0 : elem["images"]["header"].gsub("//",""),
         "category_id" => category_id
   		}
-
   		elem["children"].each do |elem2|
   			arr_json << {
   				"prod_id" => elem2["id"],
@@ -36,9 +35,12 @@ class Pars < ApplicationRecord
   def getProducts(category)
     page = Curl.get("https://catalog.api.onliner.by/search/#{category.name}?group=1&page=1")
   	head = page.head.scan(/<https.+?>/)
-  	col_page = head[-1].scan(/page=.+?>/).join.scan(/\d/).join.to_i
+    begin
+  	   col_page = head[-1].scan(/page=.+?>/).join.scan(/\d/).join.to_i
+    rescue
+      col_page = 1
+    end
     arr_json = []
-
     i = 1
     if col_page > 60
     	while i <= col_page do

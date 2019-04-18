@@ -4,14 +4,14 @@ class MainController < ApplicationController
     @categorys = Category.all
     respond_to do |format|
       format.html
-      format.csv {send_data(export_csv(@@selected_products), :filename => "#{@@cats_name}.csv", :type => 'text/csv;')}
+      format.csv {send_data(export_csv(@@selected_products), :filename => "#{@@select_category}.csv", :type => 'text/csv;')}
     end
   end
-#Сделать button update для обновления данных в существующей категории
+
   def check
-    cats_name = params[:select_category]
+    select_category = params[:select_category]
     product = Product.new
-    find_category = getCategoryByName(cats_name)
+    find_category = getCategoryByName(select_category)
     selected_products = product.getProductsByCategoryId(find_category.id)
     if selected_products.blank?
       saveData(find_category)#проблема с одностраничниками
@@ -19,30 +19,30 @@ class MainController < ApplicationController
     end
     respond_to {|format| format.json {render json: selected_products}} #format.csv {send_data(export_csv(selected_products), :filename => "#{cats_name}.csv", :type => 'text/csv;')}
     @@selected_products = selected_products
-    @@cats_name = cats_name
+    @@select_category = select_category
   end
 
   def updateProducts
-    cats_name = params[:select_category]
+    select_category = params[:select_category]
     product = Product.new
-    find_category = getCategoryByName(cats_name)
+    find_category = getCategoryByName(select_category)
     Product.where(category_id: find_category).delete_all
     saveData(find_category)#проблема с одностраничниками
     selected_products = product.getProductsByCategoryId(find_category.id)
     respond_to {|format| format.json {render json: selected_products}}
     @@selected_products = selected_products
-    @@cats_name = cats_name
+    @@select_category = select_category
   end
 
   def getCategoryByName(name)
     Category.where(name: name).last if Category.exists?(name: name)
   end
 
-  def export_csv(obj)# object database selected Products
-    head = %w{product_name category_name description price_min price_max html_url img_url}
+  def export_csv(products)# object database selected Products
+    head = %w{product_name category_abstract description price_min price_max html_url img_url}
     CSV.generate(col_sep: ";") do |csv|
       csv << head
-      obj.each do |elem|
+      products.each do |elem|
         csv << head.map{|attr| elem.send(attr)}
       end
     end

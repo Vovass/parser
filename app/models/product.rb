@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
 
   def getProductsByCategoryId(category_id)
     return Product.joins(:category)
-    .select("products.name as product_name, categories.name as category_name, description, price_min, price_max, html_url, img_url")
+    .select("products.name as product_name, categories.name as category_name, categories.abstract_name as category_abstract , description, price_min, price_max, html_url, img_url")
     .where("products.category_id = ?", category_id)
   end
 end
