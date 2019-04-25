@@ -1,4 +1,4 @@
-class Pars < ApplicationRecord
+class Pars 
   def getjsoncontent(category, number, category_id)
   	page = Curl.get("https://catalog.api.onliner.by/search/#{category}?group=1&page=#{number}")
   	json = JSON.parse(page.body_str)

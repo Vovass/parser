@@ -9,7 +9,6 @@ class MainController < ApplicationController
   end
 
   def check
-
     select_category = params[:select_category]
     product = Product.new
     find_category = getCategoryByName(select_category)
@@ -18,7 +17,6 @@ class MainController < ApplicationController
     rescue
       parser = Pars.new
       addCategoriesLocal(parser.getCategoryLoc())
-      render "/"
     end
     if selected_products.blank?
       saveData(find_category)#проблема с одностраничниками
@@ -68,10 +66,9 @@ class MainController < ApplicationController
     end
   end
 
-
-    def addCategoriesLocal(hash)
-      hash.each do |key, value|
-        Category.create(name: key, abstract_name: value) if !Category.exists?(name: key)
-      end
+  def addCategoriesLocal(hash)
+    hash.each do |key, value|
+      Category.create(name: key, abstract_name: value) if !Category.exists?(name: key)
     end
+  end
 end
